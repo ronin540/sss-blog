@@ -1,19 +1,14 @@
+const mysql = require("mysql");
+const connection = mysql.createConnection({
+	host: "localhost",
+	user: "user",
+	password: "password",
+	database: "databasename",
+});
 
-const mysql = require("mysql2/promise");
-
-async function fetch(query, attributes) {
-
-  const conn = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DATABASE,
-  });
-  const [rows, fields] = await conn.query(query, attributes);
-  await conn.end();
-  return rows;
-
-}
-
+connection.connect((err) => {
+	if (err) throw err;
+	console.log("Connected to MySQL Server!");
+});
 
 module.exports = fetch;
